@@ -24,8 +24,8 @@ namespace QuanLyThueSach.DTO.Account
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .WithMessage("Mật khẩu không để rỗng")
-                .Matches(@"\W{6,30}")
-                .WithMessage("Mật khẩu có độ dài 6 - 30 ký tự và không chứa ký tự đặc biệt");
+                .Matches(@"\d{6,30}")
+                .WithMessage("Mật khẩu có độ dài 6 - 30 ký tự và chỉ chứa số");
         }
     }
 }

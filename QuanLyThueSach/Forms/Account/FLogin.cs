@@ -3,6 +3,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using QuanLyThueSach.DTO.Account;
+using QuanLyThueSach.DAO;
 
 namespace QuanLyThueSach.Forms.Account
 {
@@ -50,7 +51,16 @@ namespace QuanLyThueSach.Forms.Account
                 return;
             } else
             {
-
+                string query = "exec sp_login @username , @password";
+                var data = DataProvider.Instance().ExcuteQuery(query, new object[] { username, password });
+                if(data.Rows.Count == 1)
+                {
+                    MessageBox.Show("Bạn đăng nhập thành công");
+                }
+                else
+                {
+                    MessageBox.Show("Bạn đăng nhập thất bại");
+                }
             }
         }
 
