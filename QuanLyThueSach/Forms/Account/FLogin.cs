@@ -62,9 +62,5 @@ namespace QuanLyThueSach.Forms.Account
             }
         }
 
-        private void btnSignUp_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
