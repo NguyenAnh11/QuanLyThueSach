@@ -51,13 +51,11 @@ namespace QuanLyThueSach.Forms.Account
                 return;
             } else
             {
-                string query = "exec sp_login @username , @password";
-                var data = DataProvider.Instance().ExcuteQuery(query, new object[] { username, password });
+                var data = AccountDAO.Login(username, password);
                 if(data.Rows.Count == 1)
                 {
                     MessageBox.Show("Bạn đăng nhập thành công");
-                }
-                else
+                } else
                 {
                     MessageBox.Show("Bạn đăng nhập thất bại");
                 }
