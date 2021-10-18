@@ -19,7 +19,7 @@ namespace QuanLyThueSach.DTO.Account
             RuleFor(x => x.Username)
                 .NotEmpty()
                 .WithMessage("Tên đăng nhập không để rỗng")
-                .Matches(@"^[a-zA-Z0-9]{6,30}")
+                .Matches(@"^[a-zA-Z0-9]{5,30}")
                 .WithMessage("Tên đăng nhập có độ dài 6 - 30 ký tự và không chứa ký tự đặc biệt");
             RuleFor(x => x.Password)
                 .NotEmpty()

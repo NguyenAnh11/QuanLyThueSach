@@ -1,24 +1,40 @@
 ﻿using System;
 using System.Text;
-using System.Data;
 using System.Security.Cryptography;
+using QuanLyThueSach.Model;
 
 namespace QuanLyThueSach.DAO
 {
     public class AccountDAO
     {
-        public static DataTable Login(string username, string password)
+        private static AccountDAO _instance;
+        public static AccountDAO Instance()
+        {
+            if(_instance == null)
+            {
+                _instance = new AccountDAO();
+            }
+            return _instance;
+        }
+        public Person Login(string username, string password)
         {
             string query = "exec sp_login @username , @password";
 
-            string hashPassword = HashPassword(password);
+            //string hashPassword = HashPassword(password);
 
-            var data = DataProvider.Instance().ExcuteQuery(query, new object[] { username, hashPassword });
+            var data = DataProvider.Instance().ExcuteQuery(query, new object[] { username, password });
 
-            return data;
+            if (data.Rows.Count != 1) return null;
+
+            var row = data.Rows[0];
+
+            int role = (int)row["role"];
+
+            Person person = new Employee(row);
+            return person;
         }
 
-        public static string HashPassword(string password)
+        public string HashPassword(string password)
         {
             var rng = new RNGCryptoServiceProvider();
 

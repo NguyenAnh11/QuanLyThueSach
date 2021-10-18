@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Text;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using QuanLyThueSach.DTO.Account;
 using QuanLyThueSach.DAO;
+using QuanLyThueSach.Model;
 
 namespace QuanLyThueSach.Forms.Account
 {
@@ -51,13 +53,20 @@ namespace QuanLyThueSach.Forms.Account
                 return;
             } else
             {
-                var data = AccountDAO.Login(username, password);
-                if(data.Rows.Count == 1)
-                {
-                    MessageBox.Show("Bạn đăng nhập thành công");
-                } else
+                var person = AccountDAO.Instance().Login(username, password);
+                if(person == null)
                 {
                     MessageBox.Show("Bạn đăng nhập thất bại");
+                } else
+                {
+                    int role = person.Role;
+                    if(role == (int)Role.Admin)
+                    {
+
+                    } else if(role == (int)Role.Staff)
+                    {
+
+                    }
                 }
             }
         }

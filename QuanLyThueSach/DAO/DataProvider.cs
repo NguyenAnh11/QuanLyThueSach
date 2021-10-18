@@ -24,10 +24,12 @@ namespace QuanLyThueSach.DAO
         public DataTable ExcuteQuery(string query, object[] obj)
         {
             var data = new DataTable();
+           
+            
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
+                
                 SqlCommand command = new SqlCommand(query, connection);
                 string[] parameters = query.Split(' ');
                 int index = 0;
