@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using QuanLyThueSach.DTO.Account;
 using QuanLyThueSach.DAO;
 using QuanLyThueSach.Model;
+using QuanLyThueSach.Forms.Manager;
 
 namespace QuanLyThueSach.Forms.Account
 {
@@ -69,7 +70,10 @@ namespace QuanLyThueSach.Forms.Account
 
                     } else if(role == (int)Role.Staff)
                     {
-
+                        FStaff fStaff = new FStaff(person);
+                        this.Hide();
+                        fStaff.ShowDialog();
+                        this.Show();
                     }
                 }
             }

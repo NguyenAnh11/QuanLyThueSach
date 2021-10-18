@@ -11,8 +11,9 @@ namespace QuanLyThueSach.Model
         public DateTime? Birthday { get; set; }
         public int? Gender { get; set; }
         public string Address { get; set; }
+        public string Avatar { get; set; }
         public int Role { get; set; }
-        public Person(int id, string username, DateTime? birthday, int? gender, string address, int roleId)
+        public Person(int id, string username, DateTime? birthday, int? gender, string address, int roleId, string avatar)
         {
             Id = id;
             Username = username;
@@ -20,6 +21,7 @@ namespace QuanLyThueSach.Model
             Gender = gender;
             Address = string.IsNullOrEmpty(address) ? string.Empty : address;
             Role = roleId;
+            Avatar = string.IsNullOrEmpty(avatar) ? string.Empty : avatar;
         }
         public Person(DataRow row)
         {
@@ -29,6 +31,7 @@ namespace QuanLyThueSach.Model
             Gender = row.IsNull("gender") ? null : (int?)row["gender"];
             Address = row.IsNull("address") ? null : string.Empty;
             Role = (int)row["role"];
+            Avatar = row.IsNull("avatar") ? null : string.Empty;
         }
     }
 }
