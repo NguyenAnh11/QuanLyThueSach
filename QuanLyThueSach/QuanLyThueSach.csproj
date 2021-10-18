@@ -77,6 +77,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Account\FAccountEmployeeInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Account\FAccountEmployeeInfo.Designer.cs">
+      <DependentUpon>FAccountEmployeeInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Account\FLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     <Compile Include="Model\Role.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Account\FAccountEmployeeInfo.resx">
+      <DependentUpon>FAccountEmployeeInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Account\FLogin.resx">
       <DependentUpon>FLogin.cs</DependentUpon>
     </EmbeddedResource>

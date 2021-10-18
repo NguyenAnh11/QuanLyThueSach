@@ -34,7 +34,6 @@ namespace QuanLyThueSach.Forms.Manager
             this.ScheduleWorkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ManageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ChangePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.txtTitle = new System.Windows.Forms.TextBox();
@@ -59,8 +58,6 @@ namespace QuanLyThueSach.Forms.Manager
             // 
             // UserInfoToolStripMenuItem
             // 
-            this.UserInfoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ChangePasswordToolStripMenuItem});
             this.UserInfoToolStripMenuItem.Name = "UserInfoToolStripMenuItem";
             this.UserInfoToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
             this.UserInfoToolStripMenuItem.Text = "Thông tin tài khoản";
@@ -83,12 +80,6 @@ namespace QuanLyThueSach.Forms.Manager
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
             this.ExitToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.ExitToolStripMenuItem.Text = "Thoát";
-            // 
-            // ChangePasswordToolStripMenuItem
-            // 
-            this.ChangePasswordToolStripMenuItem.Name = "ChangePasswordToolStripMenuItem";
-            this.ChangePasswordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ChangePasswordToolStripMenuItem.Text = "Đổi mật khẩu";
             // 
             // panel1
             // 
@@ -150,7 +141,6 @@ namespace QuanLyThueSach.Forms.Manager
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem UserInfoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ChangePasswordToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ScheduleWorkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ManageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using QuanLyThueSach.Model;
+using QuanLyThueSach.Forms.Account;
 
 namespace QuanLyThueSach.Forms.Manager
 {
@@ -17,7 +18,10 @@ namespace QuanLyThueSach.Forms.Manager
 
         private void UserInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FAccountEmployeeInfo fAccount = new FAccountEmployeeInfo(Person);
+            this.Hide();
+            fAccount.ShowDialog();
+            this.Show();
         }
     }
 }
