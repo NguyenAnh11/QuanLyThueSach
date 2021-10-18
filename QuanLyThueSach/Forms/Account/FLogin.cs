@@ -31,6 +31,9 @@ namespace QuanLyThueSach.Forms.Account
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
 
+            txtUsername.Text = string.Empty;
+            txtPassword.Text = string.Empty;
+
             var account = new AccountLoginDTO(username, password);
             var validator = new AccountLoginValidator();
             var result = validator.Validate(account);
