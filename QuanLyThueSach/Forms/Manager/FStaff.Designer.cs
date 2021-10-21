@@ -35,8 +35,8 @@ namespace QuanLyThueSach.Forms.Manager
             this.ManageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.txtTitle = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -89,13 +89,6 @@ namespace QuanLyThueSach.Forms.Manager
             this.panel1.Size = new System.Drawing.Size(773, 26);
             this.panel1.TabIndex = 1;
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(459, 2);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 0;
-            // 
             // txtTitle
             // 
             this.txtTitle.Enabled = false;
@@ -104,6 +97,13 @@ namespace QuanLyThueSach.Forms.Manager
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(314, 24);
             this.txtTitle.TabIndex = 0;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(459, 2);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 0;
             // 
             // pictureBox1
             // 
@@ -126,6 +126,7 @@ namespace QuanLyThueSach.Forms.Manager
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FStaff";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý bán sách";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

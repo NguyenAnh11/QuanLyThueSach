@@ -25,32 +25,78 @@ namespace QuanLyThueSach.DAO
         {
             var data = new DataTable();
            
-            
             using (var connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
-                
-                SqlCommand command = new SqlCommand(query, connection);
-                string[] parameters = query.Split(' ');
-                int index = 0;
-                foreach(var param in parameters)
+                try
                 {
-                    if (param.StartsWith("@"))
-                    {
-                        command.Parameters.AddWithValue(param, obj[index]);
-                        index += 1;
-                    }
-                }
-                var adapter = new SqlDataAdapter(command);
-                adapter.Fill(data);
+                    connection.Open();
 
-                connection.Close();
+                    SqlCommand command = new SqlCommand(query, connection);
+                    string[] parameters = query.Split(' ');
+                    int index = 0;
+                    foreach (var param in parameters)
+                    {
+                        if (param.StartsWith("@"))
+                        {
+                            command.Parameters.AddWithValue(param, obj[index]);
+                            index += 1;
+                        }
+                    }
+
+                    var adapter = new SqlDataAdapter(command);
+
+                    adapter.Fill(data);
+
+                } catch(Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
             return data;
         }
         public int ExcuteNonQuery(string query, object[] obj)
         {
             int rows = 0;
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    string[] parameters = query.Split(' ');
+                    int index = 0;
+                    foreach (var param in parameters)
+                    {
+                        if (param.StartsWith("@"))
+                        {
+                            var value = obj[index];
+                            command.Parameters.AddWithValue(param, value);
+                            index += 1;
+                        }
+                    }
+
+                    rows = command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            return rows;
+        }
+
+        public object ExecuteScalarQuery(string query, object[] obj)
+        {
+            object rows = 0;
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -67,7 +113,7 @@ namespace QuanLyThueSach.DAO
                     }
                 }
 
-                rows = command.ExecuteNonQuery();
+                rows = (int)command.ExecuteScalar();
 
                 connection.Close();
             }

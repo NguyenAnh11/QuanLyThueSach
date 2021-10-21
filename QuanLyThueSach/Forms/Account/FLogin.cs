@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Text;
-using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using QuanLyThueSach.DTO.Account;
@@ -35,48 +34,50 @@ namespace QuanLyThueSach.Forms.Account
             txtUsername.Text = string.Empty;
             txtPassword.Text = string.Empty;
 
-            var account = new AccountLoginDTO(username, password);
-            var validator = new AccountLoginValidator();
-            var result = validator.Validate(account);
-            if (!result.IsValid)
+            try
             {
-                IDictionary<string, string> errorDict = new Dictionary<string, string>();
-                foreach(var error in result.Errors)
+                string pattern = @"^[a-zA-Z0-9]{6,30}";
+
+                Regex regex = new Regex(pattern);
+
+                IDictionary<string, string> loginDict = new Dictionary<string, string>();
+
+                loginDict.Add("Tên đăng nhâp", username);
+                loginDict.Add("Mật khẩu", password);
+
+                foreach(var kvp in loginDict)
                 {
-                    if (!errorDict.ContainsKey(error.PropertyName))
+                    if (!regex.IsMatch(kvp.Value))
                     {
-                        errorDict.Add(error.PropertyName, error.ErrorMessage);
+                        throw new Exception($"{kvp.Key} chứa 6 - 30 ký tự và không chứa ký tự đặc biệt");
                     }
                 }
-                var errorMessage = new StringBuilder();
-                foreach(var item in errorDict)
-                {
-                    errorMessage.AppendLine(item.Value);
-                }
-                MessageBox.Show(errorMessage.ToString());
-                return;
-            } else
-            {
-                var person = AccountDAO.Instance().Login(username, password);
-                if(person == null)
-                {
-                    MessageBox.Show("Bạn đăng nhập thất bại");
-                } else
-                {
-                    MessageBox.Show("Bạn đăng nhập thành công");
-                    int role = person.Role;
-                    if(role == (int)Role.Admin)
-                    {
 
-                    } else if(role == (int)Role.Staff)
+                var account = new LoginDto(username, password);
+
+                var employee = (Employee)AccountDAO.Instance().Login(account);
+
+                if (employee == null)
+                {
+                    throw new Exception("Tên đăng nhập hoặc mật khẩu không chính xác");
+                }
+                else
+                {
+                    MessageBox.Show($"Đăng nhập thành công. Xin chào: {employee.Username}");
+                    if (employee.Role == (int)Role.Staff)
                     {
-                        FStaff fStaff = new FStaff(person);
+                        var fStaff = new FStaff(employee);
                         this.Hide();
                         fStaff.ShowDialog();
                         this.Show();
                     }
                 }
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
+            
         }
 
     }

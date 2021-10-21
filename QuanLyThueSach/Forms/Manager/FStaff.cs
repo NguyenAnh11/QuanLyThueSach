@@ -7,18 +7,19 @@ namespace QuanLyThueSach.Forms.Manager
 {
     public partial class FStaff : Form
     {
-        private Person Person { get; set; }
-        public FStaff(Person person)
+        private Employee _employee { get; set; }
+        public FStaff(Employee employee)
         {
             InitializeComponent();
-            Person = person;
 
-            txtTitle.Text = $"Xin chào: {person.Username}";
+            _employee = employee;
+
+            txtTitle.Text = $"Xin chào: {employee.Username}";
         }
 
         private void UserInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FAccountEmployeeInfo fAccount = new FAccountEmployeeInfo(Person);
+            FEmployeeProfile fAccount = new FEmployeeProfile(_employee);
             this.Hide();
             fAccount.ShowDialog();
             this.Show();
