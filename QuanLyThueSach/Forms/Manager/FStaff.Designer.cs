@@ -68,6 +68,7 @@ namespace QuanLyThueSach.Forms.Manager
             this.ScheduleWorkToolStripMenuItem.Name = "ScheduleWorkToolStripMenuItem";
             this.ScheduleWorkToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
             this.ScheduleWorkToolStripMenuItem.Text = "Lịch công việc";
+            this.ScheduleWorkToolStripMenuItem.Click += new System.EventHandler(this.ScheduleWorkToolStripMenuItem_Click);
             // 
             // ManageToolStripMenuItem
             // 

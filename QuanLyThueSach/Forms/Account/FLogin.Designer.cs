@@ -112,6 +112,7 @@ namespace QuanLyThueSach.Forms.Account
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(169, 20);
             this.txtPassword.TabIndex = 1;
+            this.txtPassword.Text = "123456";
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // labelPassword
@@ -138,6 +139,7 @@ namespace QuanLyThueSach.Forms.Account
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(169, 20);
             this.txtUsername.TabIndex = 1;
+            this.txtUsername.Text = "staff1";
             // 
             // labelUsername
             // 

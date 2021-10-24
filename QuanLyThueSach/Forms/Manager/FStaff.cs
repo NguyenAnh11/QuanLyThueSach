@@ -24,5 +24,13 @@ namespace QuanLyThueSach.Forms.Manager
             fAccount.ShowDialog();
             this.Show();
         }
+
+        private void ScheduleWorkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FEmployeeScheduleWork fEmployeeScheduleWork = new FEmployeeScheduleWork(_employee);
+            this.Hide();
+            fEmployeeScheduleWork.ShowDialog();
+            this.Show();
+        }
     }
 }

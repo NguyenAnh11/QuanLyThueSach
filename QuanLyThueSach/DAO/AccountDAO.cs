@@ -26,15 +26,40 @@ namespace QuanLyThueSach.DAO
         }
         public Person Login(LoginDto dto)
         {
-            string query = "exec sp_login @username , @password";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
 
-            var data = DataProvider.Instance().ExcuteQuery(query, new object[] { dto.Username, dto.Password });
+                    var command = new SqlCommand("sp_login", connection);
 
-            var row = data.Rows[0];
+                    command.CommandType = CommandType.StoredProcedure;
 
-            var person = new Employee(row);
+                    command.Parameters.AddWithValue("@username", dto.Username);
+                    command.Parameters.AddWithValue("@password", dto.Password);
 
-            return person;
+                    var adataper = new SqlDataAdapter(command);
+
+                    var data = new DataTable();
+
+                    adataper.Fill(data);
+
+                    var row = data.Rows[0];
+
+                    var person = new Employee(row);
+
+                    return person;
+
+                } catch(Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
         public int UpdatePassword(int userId, PasswordUpdateDto dto)
         {
