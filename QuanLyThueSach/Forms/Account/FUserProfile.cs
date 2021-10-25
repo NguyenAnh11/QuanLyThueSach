@@ -5,20 +5,19 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using QuanLyThueSach.Model;
 using QuanLyThueSach.DAO;
-using QuanLyThueSach.DTO.Account;
-using QuanLyThueSach.DTO.Staff;
+using QuanLyThueSach.DTO;
 using System.Text.RegularExpressions;
 
 namespace QuanLyThueSach.Forms.Account
 {
-    public partial class FEmployeeProfile : Form
+    public partial class FUserProfile : Form
     {
         private Employee _employee { get; set; }
         private ImageEx _imageEx { get; set; }
         private OpenFileDialog _openFileDialog { get; set;}
         private IList<TextBox> _lTextBox { get; set; }
         private IList<CheckBox> _lCheckBox { get; set; }
-        public FEmployeeProfile(Employee employee)
+        public FUserProfile(Employee employee)
         {
             InitializeComponent();
 

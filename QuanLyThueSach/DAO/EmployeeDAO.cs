@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
-using System.Diagnostics;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using QuanLyThueSach.Model;
+using QuanLyThueSach.DTO;
 
 namespace QuanLyThueSach.DAO
 {
@@ -25,7 +25,6 @@ namespace QuanLyThueSach.DAO
             _connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
         }
         
-        //get all day have shift in month and in year
         public IList<ShiftInDay> GetDayHaveShiftInMonthAndInYear(int month, int year, int id)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -72,8 +71,7 @@ namespace QuanLyThueSach.DAO
             }
         }
 
-        //get all shift in day
-        public IList<Shift> GetAllShiftHaveInDay(int employeeId, DateTime date)
+        public IList<ShiftDto> GetShiftInDayOfEmployee(int employeeId, DateTime date)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -81,31 +79,33 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_getAllShiftInDay", connection);
+                    var command = new SqlCommand("sp_getShiftInDayOfEmployee", connection);
 
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@employee_id", employeeId);
                     command.Parameters.AddWithValue("@day", date);
 
-                    var data = new DataTable();
-
                     var adapter = new SqlDataAdapter(command);
+
+                    var data = new DataTable();
 
                     adapter.Fill(data);
 
-                    IList<Shift> shifts = new List<Shift>();
+                    IList<ShiftDto> shiftDtos = new List<ShiftDto>();
 
-                    if (data.Rows.Count == 0) return shifts;
+                    if (data.Rows.Count == 0) return shiftDtos;
 
                     for(int index = 0; index < data.Rows.Count; index++)
                     {
-                        var shift = new Shift(data.Rows[index]);
-                        shifts.Add(shift);
+
+                        var shiftDto = new ShiftDto(data.Rows[index]);
+
+                        shiftDtos.Add(shiftDto);
                     }
 
                     connection.Close();
 
-                    return shifts;
+                    return shiftDtos;
 
                 }catch(Exception ex)
                 {
@@ -118,7 +118,7 @@ namespace QuanLyThueSach.DAO
             }
         }
 
-        public IList<Shift> GetAllShift()
+        public void UpdateShiftSelectInDayByEmployee(int employeeId, int shiftId, DateTime date)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -126,32 +126,18 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_getAllShift", connection);
+                    var command = new SqlCommand("sp_updateShiftSelecteInDayByEmployee", connection);
 
                     command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@employee_id", employeeId);
+                    command.Parameters.AddWithValue("@shift_id", shiftId);
+                    command.Parameters.AddWithValue("@day", date);
 
-                    var data = new DataTable();
-
-                    var adapter = new SqlDataAdapter(command);
-
-                    adapter.Fill(data);
-
-                    IList<Shift> shifts = new List<Shift>();
-
-                    if (data.Rows.Count == 0) return shifts;
-
-                    for (int index = 0; index < data.Rows.Count; index++)
-                    {
-                        var shift = new Shift(data.Rows[index]);
-                        shifts.Add(shift);
-                    }
+                    command.ExecuteNonQuery();
 
                     connection.Close();
-
-                    return shifts;
-
-                }
-                catch (Exception ex)
+                    
+                } catch(Exception ex)
                 {
                     throw ex;
                 }

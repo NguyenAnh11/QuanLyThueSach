@@ -1,7 +1,7 @@
 ﻿
 namespace QuanLyThueSach.Forms.Controls
 {
-    partial class UsrShiftInfo
+    partial class UsrShiftItem
     {
         /// <summary> 
         /// Required designer variable.
@@ -38,7 +38,6 @@ namespace QuanLyThueSach.Forms.Controls
             // cb
             // 
             this.cb.AutoSize = true;
-            this.cb.Enabled = false;
             this.cb.Location = new System.Drawing.Point(0, 18);
             this.cb.Name = "cb";
             this.cb.Size = new System.Drawing.Size(15, 14);
@@ -72,7 +71,7 @@ namespace QuanLyThueSach.Forms.Controls
             this.label1.TabIndex = 3;
             this.label1.Text = ":";
             // 
-            // UsrShiftInfo
+            // UsrShiftItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -80,7 +79,7 @@ namespace QuanLyThueSach.Forms.Controls
             this.Controls.Add(this.end);
             this.Controls.Add(this.start);
             this.Controls.Add(this.cb);
-            this.Name = "UsrShiftInfo";
+            this.Name = "UsrShiftItem";
             this.Size = new System.Drawing.Size(199, 48);
             this.Load += new System.EventHandler(this.UsrShiftInfo_Load);
             this.ResumeLayout(false);

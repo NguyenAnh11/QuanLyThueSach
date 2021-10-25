@@ -85,21 +85,23 @@
   <ItemGroup>
     <Compile Include="DAO\AccountDAO.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
-    <Compile Include="DTO\Account\LoginDto.cs" />
-    <Compile Include="DTO\Account\PasswordUpdateDto.cs" />
-    <Compile Include="DTO\Staff\EmployeeUpdateByStaffDto.cs" />
-    <Compile Include="DTO\Common\PersonUpdateDto.cs" />
+    <Compile Include="DTO\LoginDto.cs" />
+    <Compile Include="DTO\PasswordUpdateDto.cs" />
+    <Compile Include="DTO\EmployeeUpdateByStaffDto.cs" />
+    <Compile Include="DTO\PersonUpdateDto.cs" />
+    <Compile Include="DTO\ShiftDto.cs" />
+    <Compile Include="Event\UpdateSelectedShiftEventArgs.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Account\FEmployeeProfile.cs">
+    <Compile Include="Forms\Account\FUserProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Account\FEmployeeProfile.Designer.cs">
-      <DependentUpon>FEmployeeProfile.cs</DependentUpon>
+    <Compile Include="Forms\Account\FUserProfile.Designer.cs">
+      <DependentUpon>FUserProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Account\FLogin.cs">
       <SubType>Form</SubType>
@@ -113,23 +115,17 @@
     <Compile Include="Forms\Controls\UsrCalendar.Designer.cs">
       <DependentUpon>UsrCalendar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Controls\UsrNoData.cs">
+    <Compile Include="Forms\Controls\UsrShiftList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Controls\UsrNoData.Designer.cs">
-      <DependentUpon>UsrNoData.cs</DependentUpon>
+    <Compile Include="Forms\Controls\UsrShiftList.Designer.cs">
+      <DependentUpon>UsrShiftList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Controls\UsrShift.cs">
+    <Compile Include="Forms\Controls\UsrShiftItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Controls\UsrShift.Designer.cs">
-      <DependentUpon>UsrShift.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Controls\UsrShiftInfo.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Controls\UsrShiftInfo.Designer.cs">
-      <DependentUpon>UsrShiftInfo.cs</DependentUpon>
+    <Compile Include="Forms\Controls\UsrShiftItem.Designer.cs">
+      <DependentUpon>UsrShiftItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Manager\FEmployeeScheduleWork.cs">
       <SubType>Form</SubType>
@@ -154,8 +150,8 @@
     <Compile Include="Model\ShiftInDay.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\Account\FEmployeeProfile.resx">
-      <DependentUpon>FEmployeeProfile.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Account\FUserProfile.resx">
+      <DependentUpon>FUserProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Account\FLogin.resx">
       <DependentUpon>FLogin.cs</DependentUpon>
@@ -163,14 +159,11 @@
     <EmbeddedResource Include="Forms\Controls\UsrCalendar.resx">
       <DependentUpon>UsrCalendar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Controls\UsrNoData.resx">
-      <DependentUpon>UsrNoData.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Controls\UsrShiftList.resx">
+      <DependentUpon>UsrShiftList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Controls\UsrShift.resx">
-      <DependentUpon>UsrShift.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Controls\UsrShiftInfo.resx">
-      <DependentUpon>UsrShiftInfo.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Controls\UsrShiftItem.resx">
+      <DependentUpon>UsrShiftItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Manager\FEmployeeScheduleWork.resx">
       <DependentUpon>FEmployeeScheduleWork.cs</DependentUpon>
@@ -231,9 +224,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\empty-box.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

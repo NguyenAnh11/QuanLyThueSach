@@ -19,9 +19,9 @@ namespace QuanLyThueSach.Forms.Manager
 
         private void UserInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FEmployeeProfile fAccount = new FEmployeeProfile(_employee);
+            FUserProfile fProfile = new FUserProfile(_employee);
             this.Hide();
-            fAccount.ShowDialog();
+            fProfile.ShowDialog();
             this.Show();
         }
 

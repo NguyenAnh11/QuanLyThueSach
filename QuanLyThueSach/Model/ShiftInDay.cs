@@ -7,6 +7,10 @@ namespace QuanLyThueSach.Model
     {
         public DateTime Day { get; set; }
         public int Number { get; set; }
+        public ShiftInDay()
+        {
+
+        }
         public ShiftInDay(DateTime day, int number)
         {
             Day = day;

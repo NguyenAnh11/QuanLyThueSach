@@ -1,7 +1,7 @@
 ﻿
 namespace QuanLyThueSach.Forms.Account
 {
-    partial class FEmployeeProfile
+    partial class FUserProfile
     {
         /// <summary>
         /// Required designer variable.

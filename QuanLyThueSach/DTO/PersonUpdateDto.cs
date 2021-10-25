@@ -1,7 +1,6 @@
 ﻿using System;
-using QuanLyThueSach.Model;
 
-namespace QuanLyThueSach.DTO.Common
+namespace QuanLyThueSach.DTO
 {
     public class PersonUpdateDto
     { 

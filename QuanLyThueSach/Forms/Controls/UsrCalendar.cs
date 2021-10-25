@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -52,6 +52,10 @@ namespace QuanLyThueSach.Forms.Controls
         private IList<ShiftInDay> _shiftInDays { get; set; }
 
         public event EventHandler DateSelected;
+
+        public event EventHandler LoadData;
+
+        public event EventHandler CancelDateSelected;
 
         public UsrCalendar(IList<ShiftInDay> shiftInDays)
         {
@@ -108,6 +112,14 @@ namespace QuanLyThueSach.Forms.Controls
             }
         }
 
+        public string CurrentDate
+        {
+            get
+            {
+                return _currentDate;
+            }
+        }
+
         //set number shift in a day in calendar use to make color for day have shift
 
         public void SetShiftInDayInCalendar(IList<ShiftInDay> shiftInDays)
@@ -119,7 +131,31 @@ namespace QuanLyThueSach.Forms.Controls
                 _shiftInDays.Add(shiftInDay);
             }
 
-            gridCalendar.Update();
+        }
+
+        public void UpdateShiftInDayInCalendar(ShiftInDay shiftInDay)
+        {
+            bool exist = _shiftInDays.Any(x => x.Day == shiftInDay.Day);
+
+            if (!exist) _shiftInDays.Add(shiftInDay);
+
+            else
+            {
+                int index = 0;
+                for(int i = 0; i < _shiftInDays.Count; i++)
+                {
+                    if(_shiftInDays[i].Day == shiftInDay.Day)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+                _shiftInDays[index].Number = shiftInDay.Number;
+            }
+
+            //reshow to mark change color in day
+            ShowMonth();
+
         }
 
         private void ComboboxSetValue(ComboBox comboBox, string value)
@@ -317,6 +353,7 @@ namespace QuanLyThueSach.Forms.Controls
 
                 _currentDate = new DateTime(date.Year, month, date.Day).ToString("yyyy-MM-dd");
 
+                LoadData(sender, e);
                 
                 ShowMonth();
             }
@@ -330,6 +367,8 @@ namespace QuanLyThueSach.Forms.Controls
                 var date = DateTime.Parse(_currentDate);
 
                 _currentDate = new DateTime(year, date.Month, date.Day).ToString("yyyy-MM-dd");
+
+                LoadData(sender, e);
 
                 ShowMonth();
             }
@@ -387,6 +426,13 @@ namespace QuanLyThueSach.Forms.Controls
         private void btnCancel_Click(object sender, EventArgs e)
         {
             _selectedDate = string.Empty;
+
+            gridCalendar.ClearSelection();
+
+            if(CancelDateSelected != null)
+            {
+                CancelDateSelected(sender, e);
+            }
         }
 
         private void btnSelectDate_Click(object sender, EventArgs e)

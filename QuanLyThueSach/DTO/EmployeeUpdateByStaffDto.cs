@@ -1,7 +1,6 @@
 ﻿using System;
-using QuanLyThueSach.DTO.Common;
 
-namespace QuanLyThueSach.DTO.Staff
+namespace QuanLyThueSach.DTO
 {
     public class EmployeeUpdateByStaffDto:PersonUpdateDto
     {

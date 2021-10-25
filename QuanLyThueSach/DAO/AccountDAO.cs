@@ -3,8 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using QuanLyThueSach.Model;
-using QuanLyThueSach.DTO.Account;
-using QuanLyThueSach.DTO.Staff;
+using QuanLyThueSach.DTO;
 
 namespace QuanLyThueSach.DAO
 {

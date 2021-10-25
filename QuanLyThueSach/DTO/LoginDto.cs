@@ -1,4 +1,4 @@
-﻿namespace QuanLyThueSach.DTO.Account
+﻿namespace QuanLyThueSach.DTO
 {
     public class LoginDto
     {

@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using QuanLyThueSach.DTO.Account;
+using QuanLyThueSach.DTO;
 using QuanLyThueSach.DAO;
 using QuanLyThueSach.Model;
 using QuanLyThueSach.Forms.Manager;

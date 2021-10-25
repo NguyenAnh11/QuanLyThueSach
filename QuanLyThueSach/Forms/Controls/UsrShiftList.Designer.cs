@@ -1,7 +1,7 @@
 ﻿
 namespace QuanLyThueSach.Forms.Controls
 {
-    partial class UsrShift
+    partial class UsrShiftList
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,6 +31,7 @@ namespace QuanLyThueSach.Forms.Controls
         {
             this.label1 = new System.Windows.Forms.Label();
             this.flowPanelShifts = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -49,16 +50,27 @@ namespace QuanLyThueSach.Forms.Controls
             this.flowPanelShifts.Location = new System.Drawing.Point(0, 73);
             this.flowPanelShifts.Name = "flowPanelShifts";
             this.flowPanelShifts.Padding = new System.Windows.Forms.Padding(10);
-            this.flowPanelShifts.Size = new System.Drawing.Size(228, 298);
+            this.flowPanelShifts.Size = new System.Drawing.Size(228, 245);
             this.flowPanelShifts.TabIndex = 1;
             // 
-            // UsrShift
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(69, 334);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 2;
+            this.btnUpdate.Text = "Cập nhật";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // UsrShiftList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.flowPanelShifts);
             this.Controls.Add(this.label1);
-            this.Name = "UsrShift";
+            this.Name = "UsrShiftList";
             this.Size = new System.Drawing.Size(228, 371);
             this.Load += new System.EventHandler(this.UsrShift_Load);
             this.ResumeLayout(false);
@@ -70,5 +82,6 @@ namespace QuanLyThueSach.Forms.Controls
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flowPanelShifts;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }
