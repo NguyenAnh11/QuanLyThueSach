@@ -87,8 +87,8 @@
     <Compile Include="DAO\EmployeeDAO.cs" />
     <Compile Include="DTO\LoginDto.cs" />
     <Compile Include="DTO\PasswordUpdateDto.cs" />
-    <Compile Include="DTO\EmployeeUpdateByStaffDto.cs" />
-    <Compile Include="DTO\PersonUpdateDto.cs" />
+    <Compile Include="DTO\EmployeeProfileUpdateDto.cs" />
+    <Compile Include="DTO\ProfileUpdateDto.cs" />
     <Compile Include="DTO\ShiftDto.cs" />
     <Compile Include="Event\UpdateSelectedShiftEventArgs.cs" />
     <Compile Include="Form1.cs">
@@ -133,11 +133,11 @@
     <Compile Include="Forms\Manager\FEmployeeScheduleWork.Designer.cs">
       <DependentUpon>FEmployeeScheduleWork.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Manager\FStaff.cs">
+    <Compile Include="Forms\Manager\FCenter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Manager\FStaff.Designer.cs">
-      <DependentUpon>FStaff.cs</DependentUpon>
+    <Compile Include="Forms\Manager\FCenter.Designer.cs">
+      <DependentUpon>FCenter.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Employee.cs" />
@@ -168,8 +168,8 @@
     <EmbeddedResource Include="Forms\Manager\FEmployeeScheduleWork.resx">
       <DependentUpon>FEmployeeScheduleWork.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Manager\FStaff.resx">
-      <DependentUpon>FStaff.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Manager\FCenter.resx">
+      <DependentUpon>FCenter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

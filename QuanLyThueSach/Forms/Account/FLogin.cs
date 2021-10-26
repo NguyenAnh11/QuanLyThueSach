@@ -66,9 +66,9 @@ namespace QuanLyThueSach.Forms.Account
                     MessageBox.Show($"Đăng nhập thành công. Xin chào: {employee.Username}");
                     if (employee.Role == (int)Role.Staff)
                     {
-                        var fStaff = new FStaff(employee);
+                        var fcenter = new FCenter(employee);
                         this.Hide();
-                        fStaff.ShowDialog();
+                        fcenter.ShowDialog();
                         this.Show();
                     }
                 }

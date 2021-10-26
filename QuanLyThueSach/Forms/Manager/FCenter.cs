@@ -5,10 +5,10 @@ using QuanLyThueSach.Forms.Account;
 
 namespace QuanLyThueSach.Forms.Manager
 {
-    public partial class FStaff : Form
+    public partial class FCenter : Form
     {
         private Employee _employee { get; set; }
-        public FStaff(Employee employee)
+        public FCenter(Employee employee)
         {
             InitializeComponent();
 

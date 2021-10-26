@@ -98,7 +98,7 @@ namespace QuanLyThueSach.DAO
                 }
             }
         }
-        public int UpdateProfile(EmployeeUpdateByStaffDto dto)
+        public int UpdateProfile(EmployeeProfileUpdateDto dto)
         {
 
             using (var connection = new SqlConnection(_connectionString))

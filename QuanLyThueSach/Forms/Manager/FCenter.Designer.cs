@@ -1,7 +1,7 @@
 ﻿
 namespace QuanLyThueSach.Forms.Manager
 {
-    partial class FStaff
+    partial class FCenter
     {
         /// <summary>
         /// Required designer variable.

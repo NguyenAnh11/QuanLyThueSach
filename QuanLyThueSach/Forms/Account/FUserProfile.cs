@@ -123,9 +123,9 @@ namespace QuanLyThueSach.Forms.Account
                     throw new Exception("Yêu cầu trên 18 tuổi");
                 }
                 
-                var employeeDto = new EmployeeUpdateByStaffDto(_employee.Id, username, birthday, gender, address, phone, avatar);
+                var profileUpdateDto = new EmployeeProfileUpdateDto(_employee.Id, username, birthday, gender, address, phone, avatar);
 
-                int row = AccountDAO.Instance().UpdateProfile(employeeDto);
+                int row = AccountDAO.Instance().UpdateProfile(profileUpdateDto);
 
                 if(row == 1)
                 {
