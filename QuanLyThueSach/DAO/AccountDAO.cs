@@ -1,12 +1,15 @@
 ﻿using System;
-using System.Text;
-using System.Security.Cryptography;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 using QuanLyThueSach.Model;
+using QuanLyThueSach.DTO;
 
 namespace QuanLyThueSach.DAO
 {
     public class AccountDAO
     {
+        private string _connectionString { get; set; }
         private static AccountDAO _instance;
         public static AccountDAO Instance()
         {
@@ -16,40 +19,119 @@ namespace QuanLyThueSach.DAO
             }
             return _instance;
         }
-        public Person Login(string username, string password)
+        public AccountDAO()
         {
-            string query = "exec sp_login @username , @password";
-
-            //string hashPassword = HashPassword(password);
-
-            var data = DataProvider.Instance().ExcuteQuery(query, new object[] { username, password });
-
-            if (data.Rows.Count != 1) return null;
-
-            var row = data.Rows[0];
-
-            int role = (int)row["role"];
-
-            Person person = new Employee(row);
-            return person;
+            _connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
         }
-
-        public string HashPassword(string password)
+        public Person Login(LoginDto dto)
         {
-            var rng = new RNGCryptoServiceProvider();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
 
-            byte[] saltBytes = new byte[36];
-            rng.GetBytes(saltBytes);
+                    var command = new SqlCommand("sp_login", connection);
 
-            string salt = Convert.ToBase64String(saltBytes);
+                    command.CommandType = CommandType.StoredProcedure;
 
-            byte[] passwordAndSaltBytes = Encoding.UTF8.GetBytes(password + salt);
+                    command.Parameters.AddWithValue("@username", dto.Username);
+                    command.Parameters.AddWithValue("@password", dto.Password);
 
-            byte[] hashBytes = SHA256Managed.Create().ComputeHash(passwordAndSaltBytes);
+                    var adataper = new SqlDataAdapter(command);
 
-            string hashPassword = Convert.ToBase64String(hashBytes);
+                    var data = new DataTable();
 
-            return hashPassword;
+                    adataper.Fill(data);
+
+                    var row = data.Rows[0];
+
+                    var person = new Employee(row);
+
+                    return person;
+
+                } catch(Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public int UpdatePassword(int userId, PasswordUpdateDto dto)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    var commandCheckExistAccount = new SqlCommand("sp_checkAccountExistByIdAndPassword", connection);
+
+                    commandCheckExistAccount.CommandType = CommandType.StoredProcedure;
+
+                    commandCheckExistAccount.Parameters.AddWithValue("@id", userId);
+                    commandCheckExistAccount.Parameters.AddWithValue("@password", dto.OldPass);
+
+                    bool exist = (int)commandCheckExistAccount.ExecuteScalar() == 1 ? true : false;
+
+                    if (!exist) throw new Exception("Mật khẩu không khớp");
+
+                    var commandChangePassword = new SqlCommand("sp_changePassword", connection);
+
+                    commandChangePassword.CommandType = CommandType.StoredProcedure;
+
+                    commandChangePassword.Parameters.AddWithValue("@id", userId);
+                    commandChangePassword.Parameters.AddWithValue("@password", dto.NewPass);
+
+                    int row = commandChangePassword.ExecuteNonQuery();
+
+                    return row;
+                } catch(Exception ex)
+                {
+                    throw ex;
+                } finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public int UpdateProfile(EmployeeUpdateByStaffDto dto)
+        {
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string query = "sp_update_profile_by_staff";
+
+                    var command = new SqlCommand(query, connection);
+
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id", dto.Id);
+                    command.Parameters.AddWithValue("@display_name", dto.Username);
+                    command.Parameters.AddWithValue("@birthday", dto.Birthday.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@gender", dto.Gender);
+                    command.Parameters.AddWithValue("@address", string.IsNullOrEmpty(dto.Address) ? (object)DBNull.Value : dto.Address);
+                    command.Parameters.AddWithValue("@phone", dto.Phone);
+                    command.Parameters.AddWithValue("@avatar", dto.Avatar);
+
+                    int row = command.ExecuteNonQuery();
+
+                    return row;
+
+                } catch(Exception ex)
+                {
+                    throw ex;
+                } finally
+                {
+                    connection.Close();
+                }
+            }
         }
     }
 }
