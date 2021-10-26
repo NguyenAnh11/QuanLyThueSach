@@ -1,7 +1,7 @@
 ﻿
 namespace QuanLyThueSach.Forms.Manager
 {
-    partial class FEmployeeScheduleWork
+    partial class FCalendarWork
     {
         /// <summary>
         /// Required designer variable.

@@ -87,7 +87,6 @@
     <Compile Include="DAO\EmployeeDAO.cs" />
     <Compile Include="DTO\LoginDto.cs" />
     <Compile Include="DTO\PasswordUpdateDto.cs" />
-    <Compile Include="DTO\EmployeeProfileUpdateDto.cs" />
     <Compile Include="DTO\ProfileUpdateDto.cs" />
     <Compile Include="DTO\ShiftDto.cs" />
     <Compile Include="Event\UpdateSelectedShiftEventArgs.cs" />
@@ -97,11 +96,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Account\FUserProfile.cs">
+    <Compile Include="Forms\Account\FProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Account\FUserProfile.Designer.cs">
-      <DependentUpon>FUserProfile.cs</DependentUpon>
+    <Compile Include="Forms\Account\FProfile.Designer.cs">
+      <DependentUpon>FProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Account\FLogin.cs">
       <SubType>Form</SubType>
@@ -127,11 +126,11 @@
     <Compile Include="Forms\Controls\UsrShiftItem.Designer.cs">
       <DependentUpon>UsrShiftItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Manager\FEmployeeScheduleWork.cs">
+    <Compile Include="Forms\Manager\FCalendarWork.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Manager\FEmployeeScheduleWork.Designer.cs">
-      <DependentUpon>FEmployeeScheduleWork.cs</DependentUpon>
+    <Compile Include="Forms\Manager\FCalendarWork.Designer.cs">
+      <DependentUpon>FCalendarWork.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Manager\FCenter.cs">
       <SubType>Form</SubType>
@@ -150,8 +149,8 @@
     <Compile Include="Model\ShiftInDay.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\Account\FUserProfile.resx">
-      <DependentUpon>FUserProfile.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Account\FProfile.resx">
+      <DependentUpon>FProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Account\FLogin.resx">
       <DependentUpon>FLogin.cs</DependentUpon>
@@ -165,8 +164,8 @@
     <EmbeddedResource Include="Forms\Controls\UsrShiftItem.resx">
       <DependentUpon>UsrShiftItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Manager\FEmployeeScheduleWork.resx">
-      <DependentUpon>FEmployeeScheduleWork.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Manager\FCalendarWork.resx">
+      <DependentUpon>FCalendarWork.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Manager\FCenter.resx">
       <DependentUpon>FCenter.cs</DependentUpon>

@@ -19,7 +19,7 @@ namespace QuanLyThueSach.Forms.Manager
 
         private void UserInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FUserProfile fProfile = new FUserProfile(_employee);
+            FProfile fProfile = new FProfile(_employee);
             this.Hide();
             fProfile.ShowDialog();
             this.Show();
@@ -27,9 +27,9 @@ namespace QuanLyThueSach.Forms.Manager
 
         private void ScheduleWorkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FEmployeeScheduleWork fEmployeeScheduleWork = new FEmployeeScheduleWork(_employee);
+            FCalendarWork fCalendarWork = new FCalendarWork(_employee);
             this.Hide();
-            fEmployeeScheduleWork.ShowDialog();
+            fCalendarWork.ShowDialog();
             this.Show();
         }
     }

@@ -10,7 +10,7 @@ using QuanLyThueSach.Event;
 
 namespace QuanLyThueSach.Forms.Manager
 {
-    public partial class FEmployeeScheduleWork : Form
+    public partial class FCalendarWork : Form
     {
         private Employee _employee;
 
@@ -23,7 +23,7 @@ namespace QuanLyThueSach.Forms.Manager
         //get all shift in day and mark checkbox of shift selected if is choose
         private IList<ShiftDto> _shiftDtos;
 
-        public FEmployeeScheduleWork(Employee employee)
+        public FCalendarWork(Employee employee)
         {
             InitializeComponent();
 
@@ -62,7 +62,7 @@ namespace QuanLyThueSach.Forms.Manager
 
             _shiftDtos = new List<ShiftDto>();
 
-            _shiftDtos = EmployeeDAO.Instance().GetShiftInDayOfEmployee(_employee.Id, date);
+            _shiftDtos = EmployeeDAO.Instance().GetShiftInDay(_employee.Id, date);
 
             panelCalendarInfo.Controls.Clear();
 
@@ -110,7 +110,7 @@ namespace QuanLyThueSach.Forms.Manager
 
                         _shiftDtos[index].IsSelected = eventArgs[index].Selected;
 
-                        EmployeeDAO.Instance().UpdateShiftSelectInDayByEmployee(_employee.Id, _shiftDtos[index].Id, date);
+                        EmployeeDAO.Instance().UpdateShiftSelectInDay(_employee.Id, _shiftDtos[index].Id, date);
                     }
                 }
 

@@ -10,14 +10,14 @@ using System.Text.RegularExpressions;
 
 namespace QuanLyThueSach.Forms.Account
 {
-    public partial class FUserProfile : Form
+    public partial class FProfile : Form
     {
         private Employee _employee { get; set; }
         private ImageEx _imageEx { get; set; }
         private OpenFileDialog _openFileDialog { get; set;}
         private IList<TextBox> _lTextBox { get; set; }
         private IList<CheckBox> _lCheckBox { get; set; }
-        public FUserProfile(Employee employee)
+        public FProfile(Employee employee)
         {
             InitializeComponent();
 
@@ -59,15 +59,6 @@ namespace QuanLyThueSach.Forms.Account
             }
 
             txtAddress.Text = employee.Address;
-
-            if(employee.Role == (int)Role.Admin)
-            {
-                rdbAdmin.Checked = true;
-            }
-            else if(employee.Role == (int)Role.Staff)
-            {
-                rdbStaff.Checked = true;
-            }
 
             pictureAvatar.Image = Image.FromFile(employee.Avatar);
 
@@ -123,7 +114,7 @@ namespace QuanLyThueSach.Forms.Account
                     throw new Exception("Yêu cầu trên 18 tuổi");
                 }
                 
-                var profileUpdateDto = new EmployeeProfileUpdateDto(_employee.Id, username, birthday, gender, address, phone, avatar);
+                var profileUpdateDto = new ProfileUpdateDto(_employee.Id, username, birthday, gender, address, phone, avatar);
 
                 int row = AccountDAO.Instance().UpdateProfile(profileUpdateDto);
 

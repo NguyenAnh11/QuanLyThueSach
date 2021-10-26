@@ -1,7 +1,7 @@
 ﻿
 namespace QuanLyThueSach.Forms.Account
 {
-    partial class FUserProfile
+    partial class FProfile
     {
         /// <summary>
         /// Required designer variable.
@@ -49,10 +49,6 @@ namespace QuanLyThueSach.Forms.Account
             this.panel6 = new System.Windows.Forms.Panel();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rdbStaff = new System.Windows.Forms.RadioButton();
-            this.rdbAdmin = new System.Windows.Forms.RadioButton();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dateBirthday = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
@@ -88,8 +84,6 @@ namespace QuanLyThueSach.Forms.Account
             this.panel5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -204,7 +198,6 @@ namespace QuanLyThueSach.Forms.Account
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.panel6);
-            this.panel1.Controls.Add(this.panel7);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.panel2);
@@ -295,48 +288,6 @@ namespace QuanLyThueSach.Forms.Account
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Địa chỉ";
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.groupBox2);
-            this.panel7.Location = new System.Drawing.Point(0, 374);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(357, 65);
-            this.panel7.TabIndex = 5;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rdbStaff);
-            this.groupBox2.Controls.Add(this.rdbAdmin);
-            this.groupBox2.Location = new System.Drawing.Point(0, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(357, 62);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Đối tượng";
-            // 
-            // rdbStaff
-            // 
-            this.rdbStaff.AutoSize = true;
-            this.rdbStaff.Location = new System.Drawing.Point(283, 36);
-            this.rdbStaff.Name = "rdbStaff";
-            this.rdbStaff.Size = new System.Drawing.Size(74, 17);
-            this.rdbStaff.TabIndex = 1;
-            this.rdbStaff.TabStop = true;
-            this.rdbStaff.Text = "Nhân viên";
-            this.rdbStaff.UseVisualStyleBackColor = true;
-            // 
-            // rdbAdmin
-            // 
-            this.rdbAdmin.AutoSize = true;
-            this.rdbAdmin.Enabled = false;
-            this.rdbAdmin.Location = new System.Drawing.Point(11, 36);
-            this.rdbAdmin.Name = "rdbAdmin";
-            this.rdbAdmin.Size = new System.Drawing.Size(61, 17);
-            this.rdbAdmin.TabIndex = 0;
-            this.rdbAdmin.TabStop = true;
-            this.rdbAdmin.Text = "Quản lý";
-            this.rdbAdmin.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -568,13 +519,13 @@ namespace QuanLyThueSach.Forms.Account
             this.label5.TabIndex = 0;
             this.label5.Text = "Mật khẩu cũ";
             // 
-            // FAccountEmployeeInfo
+            // FUserProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(628, 474);
             this.Controls.Add(this.tabControl1);
-            this.Name = "FAccountEmployeeInfo";
+            this.Name = "FUserProfile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thông tin tài khoản";
             this.tabControl1.ResumeLayout(false);
@@ -590,9 +541,6 @@ namespace QuanLyThueSach.Forms.Account
             this.groupBox1.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -637,10 +585,6 @@ namespace QuanLyThueSach.Forms.Account
         private System.Windows.Forms.Button btnChooseAvatar;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.PictureBox pictureAvatar;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton rdbStaff;
-        private System.Windows.Forms.RadioButton rdbAdmin;
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.CheckBox cb2NewPass;
         private System.Windows.Forms.TextBox txt2NewPass;

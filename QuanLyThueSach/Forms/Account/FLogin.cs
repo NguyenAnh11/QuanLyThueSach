@@ -64,13 +64,13 @@ namespace QuanLyThueSach.Forms.Account
                 else
                 {
                     MessageBox.Show($"Đăng nhập thành công. Xin chào: {employee.Username}");
-                    if (employee.Role == (int)Role.Staff)
-                    {
-                        var fcenter = new FCenter(employee);
-                        this.Hide();
-                        fcenter.ShowDialog();
-                        this.Show();
-                    }
+                    var fcenter = new FCenter(employee);
+
+                    this.Hide();
+
+                    fcenter.ShowDialog();
+
+                    this.Show();
                 }
 
             } catch(Exception ex)

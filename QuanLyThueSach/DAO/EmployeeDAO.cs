@@ -33,7 +33,7 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_GetDayHaveShiftInMonthAndInYear", connection);
+                    var command = new SqlCommand("sp_getDayHaveShiftInMonthAndInYear", connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.AddWithValue("@employee_id", id);
@@ -71,7 +71,7 @@ namespace QuanLyThueSach.DAO
             }
         }
 
-        public IList<ShiftDto> GetShiftInDayOfEmployee(int employeeId, DateTime date)
+        public IList<ShiftDto> GetShiftInDay(int employeeId, DateTime date)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -79,7 +79,7 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_getShiftInDayOfEmployee", connection);
+                    var command = new SqlCommand("sp_getShiftInDay", connection);
 
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@employee_id", employeeId);
@@ -118,7 +118,7 @@ namespace QuanLyThueSach.DAO
             }
         }
 
-        public void UpdateShiftSelectInDayByEmployee(int employeeId, int shiftId, DateTime date)
+        public void UpdateShiftSelectInDay(int employeeId, int shiftId, DateTime date)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -126,7 +126,7 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_updateShiftSelecteInDayByEmployee", connection);
+                    var command = new SqlCommand("sp_updateShiftSelecteInDay", connection);
 
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@employee_id", employeeId);
