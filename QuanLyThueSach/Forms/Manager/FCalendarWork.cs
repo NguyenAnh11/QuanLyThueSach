@@ -6,7 +6,6 @@ using QuanLyThueSach.Forms.Controls;
 using QuanLyThueSach.Model;
 using QuanLyThueSach.DAO;
 using QuanLyThueSach.DTO;
-using QuanLyThueSach.Event;
 
 namespace QuanLyThueSach.Forms.Manager
 {
@@ -87,7 +86,7 @@ namespace QuanLyThueSach.Forms.Manager
             _usrCalendar.SetShiftInDayInCalendar(_shiftInDays);
         }
 
-        private void HandleUpdateShiftSelectInDay(object sender, IList<UpdateSelectedShiftEventArgs> eventArgs)
+        private void HandleUpdateShiftSelectInDay(object sender, IList<ShiftSelectUpdateDto> eventArgs)
         {
             var date = DateTime.Parse(_usrCalendar.SelectedDate);
 

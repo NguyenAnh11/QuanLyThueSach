@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using QuanLyThueSach.DTO;
-using QuanLyThueSach.Event;
 
 namespace QuanLyThueSach.Forms.Controls
 {
@@ -10,7 +9,7 @@ namespace QuanLyThueSach.Forms.Controls
     {
         private IList<ShiftDto> _shiftDtos;
 
-        public event EventHandler<IList<UpdateSelectedShiftEventArgs>> UpdateSelectShiftInDay;
+        public event EventHandler<IList<ShiftSelectUpdateDto>> UpdateSelectShiftInDay;
 
         public UsrShiftList(IList<ShiftDto> shiftDtos)
         {
@@ -37,18 +36,18 @@ namespace QuanLyThueSach.Forms.Controls
 
             LoopControls(checkboxs, controls);
 
-            IList<UpdateSelectedShiftEventArgs> updateSelectedShiftEventArgs = new List<UpdateSelectedShiftEventArgs>();
+            IList<ShiftSelectUpdateDto> shiftSelectUpdateDtos = new List<ShiftSelectUpdateDto>();
 
             foreach(var checkbox in checkboxs)
             {
-                var updateSelectedShiftEventArg = new UpdateSelectedShiftEventArgs(checkbox.Key, checkbox.Value);
+                var shiftSelectUpdateDto = new ShiftSelectUpdateDto(checkbox.Key, checkbox.Value);
 
-                updateSelectedShiftEventArgs.Add(updateSelectedShiftEventArg);
+                shiftSelectUpdateDtos.Add(shiftSelectUpdateDto);
             }
 
             if (UpdateSelectShiftInDay != null)
             {
-                UpdateSelectShiftInDay(sender, updateSelectedShiftEventArgs);
+                UpdateSelectShiftInDay(sender, shiftSelectUpdateDtos);
             }
 
         }

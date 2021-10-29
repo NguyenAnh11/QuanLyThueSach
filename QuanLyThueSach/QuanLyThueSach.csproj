@@ -58,6 +58,7 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Net" />
     <Reference Include="System.Security" />
     <Reference Include="System.Security.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -84,12 +85,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\AccountDAO.cs" />
+    <Compile Include="DAO\AuthorDAO.cs" />
+    <Compile Include="DAO\BookDAO.cs" />
+    <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
+    <Compile Include="DAO\LanguageDAO.cs" />
+    <Compile Include="DAO\PublisherDAO.cs" />
+    <Compile Include="DAO\StatusBookDAO.cs" />
     <Compile Include="DTO\LoginDto.cs" />
     <Compile Include="DTO\PasswordUpdateDto.cs" />
     <Compile Include="DTO\ProfileUpdateDto.cs" />
     <Compile Include="DTO\ShiftDto.cs" />
-    <Compile Include="Event\UpdateSelectedShiftEventArgs.cs" />
+    <Compile Include="DTO\ShiftSelectUpdateDto.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +120,12 @@
     </Compile>
     <Compile Include="Forms\Controls\UsrCalendar.Designer.cs">
       <DependentUpon>UsrCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\UsrManageBook.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\UsrManageBook.Designer.cs">
+      <DependentUpon>UsrManageBook.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Controls\UsrShiftList.cs">
       <SubType>UserControl</SubType>
@@ -138,15 +151,21 @@
     <Compile Include="Forms\Manager\FCenter.Designer.cs">
       <DependentUpon>FCenter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Author.cs" />
+    <Compile Include="Model\Book.cs" />
+    <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\Folder.cs" />
     <Compile Include="Model\Gender.cs" />
     <Compile Include="Model\ImageEx.cs" />
+    <Compile Include="Model\LanguageBook.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Publisher.cs" />
     <Compile Include="Model\Role.cs" />
     <Compile Include="Model\Shift.cs" />
     <Compile Include="Model\ShiftInDay.cs" />
+    <Compile Include="Model\StatusBook.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Account\FProfile.resx">
@@ -157,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Controls\UsrCalendar.resx">
       <DependentUpon>UsrCalendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\UsrManageBook.resx">
+      <DependentUpon>UsrManageBook.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Controls\UsrShiftList.resx">
       <DependentUpon>UsrShiftList.cs</DependentUpon>
@@ -172,19 +194,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>

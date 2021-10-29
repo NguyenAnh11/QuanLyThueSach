@@ -1,13 +1,13 @@
 ﻿using System;
 
 
-namespace QuanLyThueSach.Event
+namespace QuanLyThueSach.DTO
 {
-    public class UpdateSelectedShiftEventArgs:EventArgs
+    public class ShiftSelectUpdateDto:EventArgs
     {
         public int Id { get; set; }
         public bool Selected { get; set; }
-        public UpdateSelectedShiftEventArgs(int id, bool selected)
+        public ShiftSelectUpdateDto(int id, bool selected)
         {
             Id = id;
             Selected = selected;
