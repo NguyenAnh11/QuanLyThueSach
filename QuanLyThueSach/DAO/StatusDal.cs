@@ -7,23 +7,25 @@ using QuanLyThueSach.Model;
 
 namespace QuanLyThueSach.DAO
 {
-    public class AuthorDAO
+    public class StatusDal
     {
         private readonly string _connectionString;
-        private static AuthorDAO _instance;
-        public static AuthorDAO Instance()
+
+        private static StatusDal _instance;
+
+        public static StatusDal Instance()
         {
             if (_instance == null)
             {
-                _instance = new AuthorDAO();
+                _instance = new StatusDal();
             }
             return _instance;
         }
-        public AuthorDAO()
+        public StatusDal()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
         }
-        public IList<Author> GetAuthors()
+        public IList<BaseEntity> LoadStatusToCombobox()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -31,7 +33,7 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_getAuthors", connection);
+                    var command = new SqlCommand("sp_getStatusToCombobox", connection);
 
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -41,20 +43,20 @@ namespace QuanLyThueSach.DAO
 
                     adapter.Fill(data);
 
-                    IList<Author> authors = new List<Author>();
+                    IList<BaseEntity> statuss = new List<BaseEntity>();
 
-                    if (data.Rows.Count == 0) return authors;
+                    if (data.Rows.Count == 0) return statuss;
 
                     for (int index = 0; index < data.Rows.Count; index++)
                     {
                         var row = data.Rows[index];
 
-                        var author = new Author(row);
+                        var status = new BaseEntity(row);
 
-                        authors.Add(author);
+                        statuss.Add(status);
                     }
 
-                    return authors;
+                    return statuss;
 
                 }
                 catch (Exception ex)

@@ -85,13 +85,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\AccountDAO.cs" />
-    <Compile Include="DAO\AuthorDAO.cs" />
-    <Compile Include="DAO\BookDAO.cs" />
-    <Compile Include="DAO\CategoryDAO.cs" />
+    <Compile Include="DAO\AuthorDal.cs" />
+    <Compile Include="DAO\BookDal.cs" />
+    <Compile Include="DAO\CategoryDal.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
-    <Compile Include="DAO\LanguageDAO.cs" />
-    <Compile Include="DAO\PublisherDAO.cs" />
-    <Compile Include="DAO\StatusBookDAO.cs" />
+    <Compile Include="DAO\LanguageDal.cs" />
+    <Compile Include="DAO\PublisherDal.cs" />
+    <Compile Include="DAO\StatusDal.cs" />
+    <Compile Include="DTO\BookAddDto.cs" />
+    <Compile Include="DTO\BookDisplayDto.cs" />
+    <Compile Include="DTO\BookUpdateDto.cs" />
     <Compile Include="DTO\LoginDto.cs" />
     <Compile Include="DTO\PasswordUpdateDto.cs" />
     <Compile Include="DTO\ProfileUpdateDto.cs" />
@@ -152,6 +155,7 @@
       <DependentUpon>FCenter.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Author.cs" />
+    <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Customer.cs" />
@@ -159,13 +163,13 @@
     <Compile Include="Model\Folder.cs" />
     <Compile Include="Model\Gender.cs" />
     <Compile Include="Model\ImageEx.cs" />
-    <Compile Include="Model\LanguageBook.cs" />
+    <Compile Include="Model\Language.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Publisher.cs" />
     <Compile Include="Model\Role.cs" />
     <Compile Include="Model\Shift.cs" />
     <Compile Include="Model\ShiftInDay.cs" />
-    <Compile Include="Model\StatusBook.cs" />
+    <Compile Include="Model\Status.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Account\FProfile.resx">

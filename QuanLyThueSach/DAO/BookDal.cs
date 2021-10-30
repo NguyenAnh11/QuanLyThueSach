@@ -3,60 +3,48 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections.Generic;
-using QuanLyThueSach.Model;
+using QuanLyThueSach.DTO;
 
 
 namespace QuanLyThueSach.DAO
 {
-    public class BookDAO
+    public class BookDal
     {
         private readonly string _connectionString;
-
-        private static BookDAO _instance;
-
-        public static BookDAO Instance()
+        private static BookDal _instance;
+        public static BookDal Instance()
         {
             if(_instance == null)
             {
-                _instance = new BookDAO();
+                _instance = new BookDal();
             }
             return _instance;
         }
-        public BookDAO()
+        public BookDal()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
         }
 
-        public IList<Book> GetBooks()
+        public IList<BookDisplayDto> GetBooks()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 try
                 {
                     connection.Open();
-
                     var command = new SqlCommand("sp_getBooks", connection);
-
                     command.CommandType = CommandType.StoredProcedure;
-
                     var adapter = new SqlDataAdapter(command);
-
                     var data = new DataTable();
-
                     adapter.Fill(data);
-
-                    IList<Book> books = new List<Book>();
+                    IList<BookDisplayDto> books = new List<BookDisplayDto>();
                     if (data.Rows.Count == 0) return books;
-
                     for(int index = 0; index < data.Rows.Count; index++)
                     {
                         var row = data.Rows[index];
-
-                        var book = new Book(row);
-
+                        var book = new BookDisplayDto(row);
                         books.Add(book);
                     }
-
                     return books;
                 } catch(Exception ex)
                 {
@@ -68,7 +56,7 @@ namespace QuanLyThueSach.DAO
                 }
             }
         }
-        public int AddBook(Book book)
+        public int AddBook(BookAddDto book)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -90,8 +78,8 @@ namespace QuanLyThueSach.DAO
                     command.Parameters.Add("@category_id", SqlDbType.Int).Value = book.CategoryId;
                     command.Parameters.Add("@author_id", SqlDbType.Int).Value = book.AuthorId;
                     command.Parameters.Add("@publisher_id", SqlDbType.Int).Value = book.PublisherId;
-                    command.Parameters.Add("@language_id", SqlDbType.Int).Value = book.LanguageBookId;
-                    command.Parameters.Add("@statusbook_id", SqlDbType.Int).Value = book.StatusBookId;
+                    command.Parameters.Add("@language_id", SqlDbType.Int).Value = book.LanguageId;
+                    command.Parameters.Add("@status_id", SqlDbType.Int).Value = book.StatusId;
 
                     int row = command.ExecuteNonQuery();
 

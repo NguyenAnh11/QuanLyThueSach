@@ -2,22 +2,20 @@
 
 namespace QuanLyThueSach.Model
 {
-    public class StatusBook
+    public class BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public StatusBook(int id, string name)
+        public BaseEntity(int id, string name)
         {
             Id = id;
             Name = name;
         }
-
-        public StatusBook(DataRow row)
+        public BaseEntity(DataRow row)
         {
-            Id = (int)row["id"];
-            Name = row["name"].ToString();
+            Id = row.Field<int>("id");
+            Name = row.Field<string>("name");
         }
-
         public override string ToString()
         {
             return Name;

@@ -7,23 +7,25 @@ using QuanLyThueSach.Model;
 
 namespace QuanLyThueSach.DAO
 {
-    public class PublisherDAO
+    public class LanguageDal
     {
         private readonly string _connectionString;
-        private static PublisherDAO _instance;
-        public static PublisherDAO Instance()
+
+        private static LanguageDal _instance;
+
+        public static LanguageDal Instance()
         {
             if (_instance == null)
             {
-                _instance = new PublisherDAO();
+                _instance = new LanguageDal();
             }
             return _instance;
         }
-        public PublisherDAO()
+        public LanguageDal()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
         }
-        public IList<Publisher> GetPublishers()
+        public IList<BaseEntity> LoadLanguagesToCombobox()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -31,7 +33,7 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_getPublishers", connection);
+                    var command = new SqlCommand("sp_getLanguagesToCombobox", connection);
 
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -41,20 +43,20 @@ namespace QuanLyThueSach.DAO
 
                     adapter.Fill(data);
 
-                    IList<Publisher> publishers = new List<Publisher>();
+                    IList<BaseEntity> languages = new List<BaseEntity>();
 
-                    if (data.Rows.Count == 0) return publishers;
+                    if (data.Rows.Count == 0) return languages;
 
                     for (int index = 0; index < data.Rows.Count; index++)
                     {
                         var row = data.Rows[index];
 
-                        var publisher = new Publisher(row);
+                        var language = new BaseEntity(row);
 
-                        publishers.Add(publisher);
+                        languages.Add(language);
                     }
 
-                    return publishers;
+                    return languages;
 
                 }
                 catch (Exception ex)

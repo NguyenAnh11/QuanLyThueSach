@@ -2,29 +2,19 @@
 
 namespace QuanLyThueSach.Model
 {
-    public class Publisher
+    public class Publisher : BaseEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
-        public Publisher(int id, string name, string address, string phone) 
+        public Publisher(int id, string name, string address, string phone) : base(id, name)
         {
-            Id = id;
-            Name = name;
             Address = address;
             Phone = phone;
         }
-        public Publisher(DataRow row)
+        public Publisher(DataRow row) : base(row)
         {
-            Id = (int)row["id"];
-            Name = row["name"].ToString();
-            Phone = row["phone"].ToString();
-            Address = row.IsNull("address") ? string.Empty : row["address"].ToString();
-        }
-        public override string ToString()
-        {
-            return Name;
+            Phone = row.Field<string>("phone");
+            Address = row.Field<string>("address") ?? string.Empty;
         }
     }
 }

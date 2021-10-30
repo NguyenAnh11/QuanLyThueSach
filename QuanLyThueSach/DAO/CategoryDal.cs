@@ -7,23 +7,23 @@ using QuanLyThueSach.Model;
 
 namespace QuanLyThueSach.DAO
 {
-    public class LanguageDAO
+    public class CategoryDal
     {
         private readonly string _connectionString;
-        private static LanguageDAO _instance;
-        public static LanguageDAO Instance()
+        private static CategoryDal _instance;
+        public static CategoryDal Instance()
         {
-            if (_instance == null)
+            if(_instance == null)
             {
-                _instance = new LanguageDAO();
+                _instance = new CategoryDal();
             }
             return _instance;
         }
-        public LanguageDAO()
+        public CategoryDal()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
         }
-        public IList<LanguageBook> GetLanguageBooks()
+        public IList<BaseEntity> LoadCategoriesToCombobox()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -31,7 +31,7 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_getLanguageBooks", connection);
+                    var command = new SqlCommand("sp_getCategoriesToCombobox", connection);
 
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -41,23 +41,22 @@ namespace QuanLyThueSach.DAO
 
                     adapter.Fill(data);
 
-                    IList<LanguageBook> languageBooks = new List<LanguageBook>();
+                    IList<BaseEntity> categories = new List<BaseEntity>();
 
-                    if (data.Rows.Count == 0) return languageBooks;
+                    if (data.Rows.Count == 0) return categories;
 
-                    for (int index = 0; index < data.Rows.Count; index++)
+                    for(int index = 0; index < data.Rows.Count; index++)
                     {
                         var row = data.Rows[index];
 
-                        var languageBook = new LanguageBook(row);
+                        var category = new Category(row);
 
-                        languageBooks.Add(languageBook);
+                        categories.Add(category);
                     }
 
-                    return languageBooks;
+                    return categories;
 
-                }
-                catch (Exception ex)
+                } catch(Exception ex)
                 {
                     throw ex;
                 }

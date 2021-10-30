@@ -7,23 +7,25 @@ using QuanLyThueSach.Model;
 
 namespace QuanLyThueSach.DAO
 {
-    public class StatusBookDAO
+    public class PublisherDal
     {
         private readonly string _connectionString;
-        private static StatusBookDAO _instance;
-        public static StatusBookDAO Instance()
+
+        private static PublisherDal _instance;
+
+        public static PublisherDal Instance()
         {
             if (_instance == null)
             {
-                _instance = new StatusBookDAO();
+                _instance = new PublisherDal();
             }
             return _instance;
         }
-        public StatusBookDAO()
+        public PublisherDal()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
         }
-        public IList<StatusBook> GetStatusBooks()
+        public IList<BaseEntity> LoadPublishersToCombobox()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -31,7 +33,7 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_getStatusBooks", connection);
+                    var command = new SqlCommand("sp_getPublishersToCombobox", connection);
 
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -41,20 +43,20 @@ namespace QuanLyThueSach.DAO
 
                     adapter.Fill(data);
 
-                    IList<StatusBook> statusBooks = new List<StatusBook>();
+                    IList<BaseEntity> publishers = new List<BaseEntity>();
 
-                    if (data.Rows.Count == 0) return statusBooks;
+                    if (data.Rows.Count == 0) return publishers;
 
                     for (int index = 0; index < data.Rows.Count; index++)
                     {
                         var row = data.Rows[index];
 
-                        var statusBook = new StatusBook(row);
+                        var publisher = new BaseEntity(row);
 
-                        statusBooks.Add(statusBook);
+                        publishers.Add(publisher);
                     }
 
-                    return statusBooks;
+                    return publishers;
 
                 }
                 catch (Exception ex)

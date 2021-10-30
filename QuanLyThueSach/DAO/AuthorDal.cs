@@ -7,23 +7,25 @@ using QuanLyThueSach.Model;
 
 namespace QuanLyThueSach.DAO
 {
-    public class CategoryDAO
+    public class AuthorDal
     {
         private readonly string _connectionString;
-        private static CategoryDAO _instance;
-        public static CategoryDAO Instance()
+
+        private static AuthorDal _instance;
+
+        public static AuthorDal Instance()
         {
-            if(_instance == null)
+            if (_instance == null)
             {
-                _instance = new CategoryDAO();
+                _instance = new AuthorDal();
             }
             return _instance;
         }
-        public CategoryDAO()
+        public AuthorDal()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["connection"].ConnectionString;
         }
-        public IList<Category> GetCategories()
+        public IList<BaseEntity> LoadAuthorsToCombobox()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -31,7 +33,7 @@ namespace QuanLyThueSach.DAO
                 {
                     connection.Open();
 
-                    var command = new SqlCommand("sp_getCategories", connection);
+                    var command = new SqlCommand("sp_getAuthorsToCombobox", connection);
 
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -41,22 +43,23 @@ namespace QuanLyThueSach.DAO
 
                     adapter.Fill(data);
 
-                    IList<Category> categories = new List<Category>();
+                    IList<BaseEntity> authors = new List<BaseEntity>();
 
-                    if (data.Rows.Count == 0) return categories;
+                    if (data.Rows.Count == 0) return authors;
 
-                    for(int index = 0; index < data.Rows.Count; index++)
+                    for (int index = 0; index < data.Rows.Count; index++)
                     {
                         var row = data.Rows[index];
 
-                        var category = new Category(row);
+                        var author = new BaseEntity(row);
 
-                        categories.Add(category);
+                        authors.Add(author);
                     }
 
-                    return categories;
+                    return authors;
 
-                } catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
                     throw ex;
                 }

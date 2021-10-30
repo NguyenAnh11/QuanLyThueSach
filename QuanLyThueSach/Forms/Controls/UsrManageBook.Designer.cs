@@ -71,7 +71,6 @@ namespace QuanLyThueSach.Forms.Controls
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBook = new System.Windows.Forms.PictureBox();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.btnDeletePhoto = new System.Windows.Forms.Button();
             this.btnTakePhoto = new System.Windows.Forms.Button();
             this.panel14 = new System.Windows.Forms.Panel();
             this.btnSelect = new System.Windows.Forms.Button();
@@ -131,6 +130,7 @@ namespace QuanLyThueSach.Forms.Controls
             this.gridBooks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridBooks.Size = new System.Drawing.Size(1123, 279);
             this.gridBooks.TabIndex = 0;
+            this.gridBooks.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridBooks_CellMouseDoubleClick);
             // 
             // groupBox1
             // 
@@ -219,6 +219,7 @@ namespace QuanLyThueSach.Forms.Controls
             this.cbBookLanguage.Name = "cbBookLanguage";
             this.cbBookLanguage.Size = new System.Drawing.Size(205, 21);
             this.cbBookLanguage.TabIndex = 1;
+            this.cbBookLanguage.Click += new System.EventHandler(this.cbBookLanguage_Click);
             // 
             // label10
             // 
@@ -245,6 +246,7 @@ namespace QuanLyThueSach.Forms.Controls
             this.cbBookStatus.Name = "cbBookStatus";
             this.cbBookStatus.Size = new System.Drawing.Size(205, 21);
             this.cbBookStatus.TabIndex = 1;
+            this.cbBookStatus.Click += new System.EventHandler(this.cbBookStatus_Click);
             // 
             // label9
             // 
@@ -271,6 +273,7 @@ namespace QuanLyThueSach.Forms.Controls
             this.cbBookPublisher.Name = "cbBookPublisher";
             this.cbBookPublisher.Size = new System.Drawing.Size(205, 21);
             this.cbBookPublisher.TabIndex = 1;
+            this.cbBookPublisher.Click += new System.EventHandler(this.cbBookPublisher_Click);
             // 
             // label8
             // 
@@ -297,6 +300,7 @@ namespace QuanLyThueSach.Forms.Controls
             this.cbBookAuthor.Name = "cbBookAuthor";
             this.cbBookAuthor.Size = new System.Drawing.Size(205, 21);
             this.cbBookAuthor.TabIndex = 1;
+            this.cbBookAuthor.Click += new System.EventHandler(this.cbBookAuthor_Click);
             // 
             // label7
             // 
@@ -323,6 +327,7 @@ namespace QuanLyThueSach.Forms.Controls
             this.cbBookCategory.Name = "cbBookCategory";
             this.cbBookCategory.Size = new System.Drawing.Size(205, 21);
             this.cbBookCategory.TabIndex = 1;
+            this.cbBookCategory.Click += new System.EventHandler(this.cbBookCategory_Click);
             // 
             // label6
             // 
@@ -481,26 +486,15 @@ namespace QuanLyThueSach.Forms.Controls
             // 
             // panel13
             // 
-            this.panel13.Controls.Add(this.btnDeletePhoto);
             this.panel13.Controls.Add(this.btnTakePhoto);
             this.panel13.Location = new System.Drawing.Point(649, 341);
             this.panel13.Name = "panel13";
             this.panel13.Size = new System.Drawing.Size(232, 64);
             this.panel13.TabIndex = 3;
             // 
-            // btnDeletePhoto
-            // 
-            this.btnDeletePhoto.Location = new System.Drawing.Point(131, 22);
-            this.btnDeletePhoto.Name = "btnDeletePhoto";
-            this.btnDeletePhoto.Size = new System.Drawing.Size(75, 23);
-            this.btnDeletePhoto.TabIndex = 1;
-            this.btnDeletePhoto.Text = "Xóa ảnh";
-            this.btnDeletePhoto.UseVisualStyleBackColor = true;
-            this.btnDeletePhoto.Click += new System.EventHandler(this.btnDeletePhoto_Click);
-            // 
             // btnTakePhoto
             // 
-            this.btnTakePhoto.Location = new System.Drawing.Point(23, 22);
+            this.btnTakePhoto.Location = new System.Drawing.Point(77, 22);
             this.btnTakePhoto.Name = "btnTakePhoto";
             this.btnTakePhoto.Size = new System.Drawing.Size(75, 23);
             this.btnTakePhoto.TabIndex = 0;
@@ -733,6 +727,5 @@ namespace QuanLyThueSach.Forms.Controls
         private System.Windows.Forms.Panel panel15;
         private System.Windows.Forms.TextBox txtPage;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button btnDeletePhoto;
     }
 }

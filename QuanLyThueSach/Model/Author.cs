@@ -3,32 +3,22 @@ using System.Data;
 
 namespace QuanLyThueSach.Model
 {
-    public class Author
+    public class Author : BaseEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public DateTime Birthday { get; set; }
         public int Gender { get; set; }
         public string Address { get; set; }
-        public Author(int id, string name, DateTime birthday, int gender, string address)
+        public Author(int id, string name, DateTime birthday, int gender, string address) : base(id, name)
         {
-            Id = id;
-            Name = name;
             Birthday = birthday;
             Gender = gender;
             Address = address;
         }
-        public Author(DataRow row)
+        public Author(DataRow row) : base(row)
         {
-            Id = (int)row["id"];
-            Name = row["name"].ToString();
-            Birthday = row.IsNull("birthday") ? DateTime.Now : (DateTime)row["birthday"];
-            Gender = (int)row["gender"];
-            Address = row.IsNull("address") ? string.Empty : row["address"].ToString();
-        }
-        public override string ToString()
-        {
-            return Name;
+            Birthday = row.Field<DateTime>("birthday") == null ? DateTime.Now : row.Field<DateTime>("birthday");
+            Gender = row.Field<int>("gender");
+            Address = row.Field<string>("address") ?? string.Empty;
         }
     }
 }

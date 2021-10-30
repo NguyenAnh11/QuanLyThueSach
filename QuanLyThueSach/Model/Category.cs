@@ -2,27 +2,17 @@
 
 namespace QuanLyThueSach.Model
 {
-    public class Category
-    {
-        public int Id { get; set; }
+    public class Category : BaseEntity
+    { 
 
-        public string Name { get; set; }
-
-        public Category(int id, string name)
+        public Category(int id, string name) : base(id, name)
         {
-            Id = id;
-            Name = name;
         }
 
-        public Category(DataRow row)
+        public Category(DataRow row) : base(row)
         {
-            Id = (int)row["id"];
-            Name = row["name"].ToString();
+
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 }

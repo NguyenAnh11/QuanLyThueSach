@@ -1,27 +1,39 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 using QuanLyThueSach.DAO;
+using QuanLyThueSach.DTO;
 using QuanLyThueSach.Model;
+using System.Collections.Generic;
 
 namespace QuanLyThueSach.Forms.Controls
 {
     public partial class UsrManageBook : UserControl
     {
         private OpenFileDialog _openFileDialog;
-
         private ImageEx _imageEx;
+        private bool _hasLoadCategory;
+        private bool _hasLoadAuthor;
+        private bool _hasLoadPublisher;
+        private bool _hasLoadLanguage;
+        private bool _hasLoadStatus;
 
         public UsrManageBook()
         {
             InitializeComponent();
 
             _openFileDialog = new OpenFileDialog();
-
             _openFileDialog.Filter = "Image Files(*.jpg;*.png;*.jpeg)|*.jpg;*.png;*.jpeg";
-
             _openFileDialog.Multiselect = false;
+
+            _hasLoadCategory = false;
+            _hasLoadAuthor = false;
+            _hasLoadPublisher = false;
+            _hasLoadLanguage = false;
+            _hasLoadStatus = false;
         }
 
         private void UsrManageBook_Load(object sender, EventArgs e)
@@ -34,58 +46,248 @@ namespace QuanLyThueSach.Forms.Controls
 
             btnDelete.Enabled = false;
             btnUpdate.Enabled = false;
-            btnDeletePhoto.Enabled = false;
 
-            txtBookId.Enabled = false;
+            InitializeDataGridView();
 
+            var books = BookDal.Instance().GetBooks();
+
+            AddDataToDataGridView(books);
 
             gridBooks.ClearSelection();
+        }
 
-            gridBooks.CurrentCell = null;
+        private void InitializeDataGridView()
+        {
+            //visible
+            gridBooks.Columns.Add("Id", "Mã sách");
+            gridBooks.Columns.Add("Name", "Tên sách");
+            gridBooks.Columns.Add("Page", "Số trang");
+            gridBooks.Columns.Add("Number", "Số lượng");
+            gridBooks.Columns.Add("Price", "Giá");
+            gridBooks.Columns.Add("RentPrice", "Giá bán");
+            gridBooks.Columns.Add("Note", "Ghi chú");
+            gridBooks.Columns.Add("CategoryName", "Loại hàng");
+            gridBooks.Columns.Add("AuthorName", "Tác giả");
+            gridBooks.Columns.Add("PublisherName", "Nhà xuất bản");
+            gridBooks.Columns.Add("LanguageName", "Ngôn ngữ");
+            gridBooks.Columns.Add("StatusName", "Tình trạng");
+            //unvisible
+            gridBooks.Columns.Add("Image", "Ảnh");
+            gridBooks.Columns[12].Visible = false;
 
-            gridBooks.DataSource = BookDAO.Instance().GetBooks();
+            gridBooks.Columns.Add("CategoryId", "Mã loại hàng");
+            gridBooks.Columns[13].Visible = false;
 
-            var categories = CategoryDAO.Instance().GetCategories();
-            cbBookCategory.Items.AddRange(categories.ToArray());
+            gridBooks.Columns.Add("AuthorId", "Mã tác giả");
+            gridBooks.Columns[14].Visible = false;
 
-            var authors = AuthorDAO.Instance().GetAuthors();
-            cbBookAuthor.Items.AddRange(authors.ToArray());
+            gridBooks.Columns.Add("PublisherId", "Mã nhà xuất bản");
+            gridBooks.Columns[15].Visible = false;
 
-            var publisher = PublisherDAO.Instance().GetPublishers();
-            cbBookPublisher.Items.AddRange(publisher.ToArray());
+            gridBooks.Columns.Add("LanguageId", "Mã ngôn ngữ");
+            gridBooks.Columns[16].Visible = false;
 
-            var languages = LanguageDAO.Instance().GetLanguageBooks();
-            cbBookLanguage.Items.AddRange(languages.ToArray());
+            gridBooks.Columns.Add("StatusId", "Mã tình trạng");
+            gridBooks.Columns[17].Visible = false;
 
-            var status = StatusBookDAO.Instance().GetStatusBooks();
-            cbBookStatus.Items.AddRange(status.ToArray());
+            gridBooks.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            gridBooks.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10);
+
+            for (int index = 0; index < gridBooks.Columns.Count; index++)
+            {
+                gridBooks.Columns[index].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+        }
+
+        private void AddDataToDataGridView(IList<BookDisplayDto> books)
+        {
+            gridBooks.Rows.Clear();
+            foreach(var book in books)
+            {
+                var row = new DataGridViewRow();
+                row.CreateCells(gridBooks);
+                row.Cells[0].Value = book.Id;
+                row.Cells[1].Value = book.Name;
+                row.Cells[2].Value = book.Page;
+                row.Cells[3].Value = book.Number;
+                row.Cells[4].Value = book.Price;
+                row.Cells[5].Value = book.RentPrice;
+                row.Cells[6].Value = book.Note;
+                row.Cells[7].Value = book.CategoryName;
+                row.Cells[8].Value = book.AuthorName;
+                row.Cells[9].Value = book.PublisherName;
+                row.Cells[10].Value = book.LanguageName;
+                row.Cells[11].Value = book.StatusName;
+                row.Cells[12].Value = book.Image;
+                row.Cells[13].Value = book.CategoryId;
+                row.Cells[14].Value = book.AuthorId;
+                row.Cells[15].Value = book.PublisherId;
+                row.Cells[16].Value = book.LanguageId;
+                row.Cells[17].Value = book.StatusId;
+                gridBooks.Rows.Add(row);
+            }
+        }
+
+        private int GetValueFromCombobox(ComboBox combobox)
+        {
+            if (combobox.SelectedIndex == -1) return -1;
+            if (combobox.Items.Count == 0) return -1;
+            var data = (Category)combobox.SelectedItem;
+            return data.Id;
+        }
+
+        private void SetValueToCombobox(ComboBox comboBox, IList<BaseEntity> baseEntities)
+        {
+            if(baseEntities.Count > 0)
+            {
+                foreach(var baseEntity in baseEntities)
+                {
+                    comboBox.Items.Add(baseEntity);
+                }
+            }
+        }
+
+        private void SetSelectIndexCombobox(ComboBox combobox, int value)
+        {
+            for(int index = 0; index < combobox.Items.Count; index++)
+            {
+                var item = (BaseEntity)combobox.Items[index];
+                if(item.Id == value)
+                {
+                    combobox.SelectedIndex = index;
+                }
+            }
+        }
+
+        private void Clear()
+        {
+            txtBookId.Text = string.Empty;
+            txtName.Text = string.Empty;
+            txtNote.Text = string.Empty;
+            txtPage.Text = string.Empty;
+            txtNumber.Text = string.Empty;
+            txtPrice.Text = string.Empty;
+            txtRentPrice.Text = string.Empty;
+
+            cbBookCategory.SelectedIndex = -1;
+            cbBookAuthor.SelectedIndex = -1;
+            cbBookPublisher.SelectedIndex = -1;
+            cbBookLanguage.SelectedIndex = -1;
+            cbBookStatus.SelectedIndex = -1;
+
+            _imageEx = null;
+
+            pictureBook.Image = null;
+        }
+
+        private void Insert(BookUpdateDto book)
+        {
+            txtBookId.Text = book.Id.ToString();
+            txtName.Text = book.Name;
+            txtPage.Text = book.Page.ToString();
+            txtNumber.Text = book.Number.ToString();
+            txtPrice.Text = book.Price.ToString();
+            txtRentPrice.Text = book.RentPrice.ToString();
+            txtNote.Text = book.Note;
+
+            _imageEx = new ImageEx(book.Image);
+
+            pictureBook.Image = _imageEx.Image;
+
+            SetSelectIndexCombobox(cbBookCategory, book.CategoryId);
+            SetSelectIndexCombobox(cbBookAuthor, book.AuthorId);
+            SetSelectIndexCombobox(cbBookPublisher, book.PublisherId);
+            SetSelectIndexCombobox(cbBookLanguage, book.LanguageId);
+            SetSelectIndexCombobox(cbBookStatus, book.StatusId);
+        }
+
+        private BookUpdateDto GetRowValue(DataGridViewRow row)
+        {
+            int id = int.Parse(row.Cells[0].Value.ToString());
+            string name = row.Cells[1].Value.ToString();
+            int page = int.Parse(row.Cells[2].Value.ToString());
+            int number = int.Parse(row.Cells[3].Value.ToString());
+            int price = int.Parse(row.Cells[4].Value.ToString());
+            int rentPrice = int.Parse(row.Cells[5].Value.ToString());
+            string note = row.Cells[6].Value.ToString();
+            string path = row.Cells[12].Value.ToString();
+            int categoryId = int.Parse(row.Cells[13].Value.ToString());
+            int authorId = int.Parse(row.Cells[14].Value.ToString());
+            int publisherId = int.Parse(row.Cells[15].Value.ToString());
+            int languageId = int.Parse(row.Cells[16].Value.ToString());
+            int statusId = int.Parse(row.Cells[17].Value.ToString());
+
+            return new BookUpdateDto(id, name, page, number, price, rentPrice, note, path, 
+                categoryId, authorId, publisherId, languageId, statusId);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
             {
-                string path = Folder.DefaultAvatarBook;
+                string name = txtName.Text.Trim();
+                string note = txtNote.Text.Trim();
 
-                if (_imageEx != null)
+                int page = 0, number = 0, price = 0, rentPrice = 0;
+
+                if(!int.TryParse(txtPage.Text.Trim(), out page))
                 {
-                    path = _imageEx.FileName;
+                    throw new Exception("Số trang nhập phải dạng nguyên");
+                } else if(!int.TryParse(txtNumber.Text.Trim(), out number))
+                {
+                    throw new Exception("Số lượng nhập phải dạng nguyên");
+                } else if(!int.TryParse(txtPrice.Text.Trim(), out price))
+                {
+                    throw new Exception("Giá nhập phải dạng nguyên");
+                } else if(!int.TryParse(txtRentPrice.Text.Trim(), out rentPrice))
+                {
+                    throw new Exception("Giá bán phải dạng nguyên");
                 }
 
-                var book = GetData();
+                string path = Folder.DefaultAvatarBook;
+                if (_imageEx != null) path = _imageEx.FileName;
 
-                string error = ValidateData(book);
+                string format = Path.GetExtension(path);
+                string newPath = Path.Combine(Folder.Images, Guid.NewGuid().ToString() + format);
 
-                if (!string.IsNullOrEmpty(error)) throw new Exception(error);
+                int categoryId = GetValueFromCombobox(cbBookCategory);
 
-                BookDAO.Instance().AddBook(book);
+                int authorId = GetValueFromCombobox(cbBookAuthor);
 
-                File.Copy(path, book.Image);
+                int publisherId = GetValueFromCombobox(cbBookPublisher);
 
-                MessageBox.Show("Thêm sách thành công");
+                int languageId = GetValueFromCombobox(cbBookLanguage);
 
-                gridBooks.DataSource = BookDAO.Instance().GetBooks();
+                int statusId = GetValueFromCombobox(cbBookStatus);
 
+                var bookAddDto = new BookAddDto(name, page, number, price, rentPrice, note, newPath, categoryId, 
+                        authorId, publisherId, languageId, statusId);
+
+                var validator = new BookAddDtoValidator();
+
+                var result = validator.Validate(bookAddDto);
+
+                if(!result.IsValid)
+                {
+                    var errorMesage = new StringBuilder();
+
+                    foreach(var error in result.Errors)
+                    {
+                        errorMesage.AppendLine(error.ErrorMessage);
+                    }
+
+                    throw new Exception(errorMesage.ToString());
+                } else
+                {
+                    BookDal.Instance().AddBook(bookAddDto);
+
+                    File.Copy(path, newPath);
+
+                    Clear();
+
+                    MessageBox.Show("Thêm sách thành công");
+                }
+                
             } catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -104,118 +306,80 @@ namespace QuanLyThueSach.Forms.Controls
                 _imageEx = new ImageEx(name);
 
                 pictureBook.Image = _imageEx.Image;
-
-                btnDeletePhoto.Enabled = true;
             }
         }
 
-        private void btnDeletePhoto_Click(object sender, EventArgs e)
+        private void cbBookCategory_Click(object sender, EventArgs e)
         {
-            btnDeletePhoto.Enabled = false;
+            if (!_hasLoadCategory)
+            {
+                var categories = CategoryDal.Instance().LoadCategoriesToCombobox();
 
-            _imageEx = new ImageEx(Folder.DefaultAvatarBook);
+                SetValueToCombobox(cbBookCategory, categories);
 
-            pictureBook.Image = _imageEx.Image;
+                _hasLoadCategory = true;
+            }
         }
 
-        private string ValidateData(Book book)
+        private void cbBookAuthor_Click(object sender, EventArgs e)
         {
+            if (!_hasLoadAuthor)
+            {
+                var authors = AuthorDal.Instance().LoadAuthorsToCombobox();
 
-            if (string.IsNullOrEmpty(book.Name))
-            {
-                return "Tên không để rỗng";
+                SetValueToCombobox(cbBookAuthor, authors);
+
+                _hasLoadAuthor = true;
             }
-            else if (book.Number < 0)
-            {
-                return "Số lượng phải lớn hơn hoặc bằng 0";
-            }
-            else if (book.Price <= 0)
-            {
-                return "Giá phải lớn hơn 0";
-            }
-            else if (book.RentPrice <= 0)
-            {
-                return "Giá bán phải lớn hơn 0";
-            }
-            else if (book.Page < 0)
-            {
-                return "Số trang lớn hơn 0";
-            }
-            else if (book.CategoryId == -1)
-            {
-                return "Chọn loại sách cho sách";
-            }
-            else if (book.AuthorId == -1)
-            {
-                return "Chọn tác giả cho sách";
-            }
-            else if (book.PublisherId == -1)
-            {
-                return "Chọn nhà xuất bản cho sách";
-            }
-            else if (book.LanguageBookId == -1)
-            {
-                return "Chọn ngôn ngữ cho sách";
-            }
-            else if (book.StatusBookId == -1)
-            {
-                return "Chọn trạng thái cho sách";
-            }
-            return null;
         }
 
-        private Book GetData()
+        private void cbBookPublisher_Click(object sender, EventArgs e)
         {
-
-            string name = txtName.Text.Trim();
-
-            int page, number, price, rentPrice;
-
-            if (!int.TryParse(txtPage.Text.Trim(), out page))
+            if (!_hasLoadPublisher)
             {
-                throw new Exception("Số trang nhập phải dạng số nguyên");
+                var publishers = PublisherDal.Instance().LoadPublishersToCombobox();
+
+                SetValueToCombobox(cbBookPublisher, publishers);
+
+                _hasLoadPublisher = true;
             }
-            if (!int.TryParse(txtNumber.Text.Trim(), out number))
-            {
-                throw new Exception("Số lượng nhập phải dạng số nguyên");
-            }
-            if (!int.TryParse(txtPrice.Text.Trim(), out price))
-            {
-                throw new Exception("Giá nhập phải dạng số nguyên");
-            }
-            if (!int.TryParse(txtRentPrice.Text.Trim(), out rentPrice))
-            {
-                throw new Exception("Giá bán nhập phải dạng số nguyên");
-            }
-
-            string note = txtNote.Text.Trim();
-
-            string path = Folder.DefaultAvatarBook;
-
-            if (_imageEx != null)
-            {
-                path = _imageEx.FileName;
-            }
-
-            string format = Path.GetExtension(path);
-
-            string newPath = Path.Combine(Folder.Images, Guid.NewGuid().ToString() + format);
-
-            int categoryId = ((Category)cbBookCategory.SelectedItem).Id;
-
-            int authorId = ((Author)cbBookAuthor.SelectedItem).Id;
-
-            int publisherId = ((Publisher)cbBookAuthor.SelectedItem).Id;
-
-            int languageId = ((LanguageBook)cbBookLanguage.SelectedItem).Id;
-
-            int statusId = ((StatusBook)cbBookStatus.SelectedItem).Id;
-
-            var bookDto = new Book(name, page, number, price, rentPrice, note, newPath, categoryId, authorId, publisherId, languageId, statusId);
-
-            return bookDto;
-
         }
 
+        private void cbBookStatus_Click(object sender, EventArgs e)
+        {
+            if (!_hasLoadStatus)
+            {
+                var status = StatusDal.Instance().LoadStatusToCombobox();
+
+                SetValueToCombobox(cbBookStatus, status);
+
+                _hasLoadStatus = true;
+            }
+        }
+
+        private void cbBookLanguage_Click(object sender, EventArgs e)
+        {
+            if (!_hasLoadLanguage)
+            {
+                var languages = LanguageDal.Instance().LoadLanguagesToCombobox();
+
+                SetValueToCombobox(cbBookLanguage, languages);
+
+                _hasLoadLanguage = true;
+            }
+        }
+
+        private void gridBooks_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
+
+            var row = gridBooks.SelectedRows[0];
+
+            var value = GetRowValue(row);
+
+            //insert data to form
+            Insert(value);
+        }
     }
 }
